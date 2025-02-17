@@ -1,5 +1,5 @@
 # Ignora la cartella node_modules nella cartella principale
-/node_modules/
+node_modules/
 
 # Ignora il file package.json nella cartella principale
 /package.json

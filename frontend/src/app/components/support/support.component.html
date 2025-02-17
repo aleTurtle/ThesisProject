@@ -1,0 +1,51 @@
+<!-- support.html -->
+<div class="support-page">
+    <h1>Supporto - Proponi un Miglioramento</h1>
+    <p>Condividi le tue idee per migliorare il nostro chatbot universitario. Compila il modulo qui sotto e invia la tua proposta.</p>
+  
+    <form class="support-form" (ngSubmit)="onSubmit()" #supportForm="ngForm">
+      <div class="form-group">
+        <label for="username">Nome Utente</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          placeholder="Inserisci il tuo nome utente"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          placeholder="Inserisci la tua email"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="proposal">Proposta di Miglioramento</label>
+        <textarea
+          id="proposal"
+          name="proposal"
+          [(ngModel)]="proposal"
+          required
+          placeholder="Descrivi la tua proposta..."
+          rows="5"
+        ></textarea>
+      </div>
+  
+      <button type="submit" class="submit-button" [disabled]="supportForm.invalid">
+        Invia Proposta
+      </button>
+  
+      <div class="form-feedback" *ngIf="feedbackMessage">
+        {{ feedbackMessage }}
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,17 @@
+.user-authenticated-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  main {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  app-chatbot {
+    width: 80%; // Imposta una larghezza maggiore
+    max-width: 1200px; // Imposta una larghezza massima per schermi grandi
+    margin: 0 auto; // Centra il chatbot
+  }
+}

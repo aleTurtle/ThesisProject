@@ -1,0 +1,58 @@
+<div class="signup-container">
+    <div class="card shadow-sm p-4">
+      <h1 class="card-title text-center mb-4">Registrati</h1>
+  
+      <form (ngSubmit)="onSubmit()">
+        <!-- Username Field -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Nome Utente</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            [(ngModel)]="user.username"
+            name="username"
+            required
+            placeholder="Inserisci il tuo nome utente"
+          />
+        </div>
+  
+        <!-- Password Field -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            [(ngModel)]="user.password"
+            name="password"
+            required
+            placeholder="Inserisci la tua password"
+          />
+        </div>
+  
+        <!-- Role Field (Optional) -->
+        <div class="mb-3">
+          <label for="role" class="form-label">Ruolo</label>
+          <select
+            id="role"
+            class="form-control"
+            [(ngModel)]="user.role"
+            name="role"
+            required
+          >
+            <option value="" disabled selected>Scegli il tuo ruolo</option>
+            <option value="student">Studente</option>
+            <option value="professor">Docente</option>
+            <option value="admin">Amministratore</option>
+          </select>
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100">Registrati</button>
+      </form>
+  
+      <p class="text-center mt-3">Hai già un account? <a href="/login" class="text-decoration-none">Accedi</a></p>
+    </div>
+  </div>
+  

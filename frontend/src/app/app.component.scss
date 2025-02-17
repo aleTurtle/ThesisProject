@@ -1,0 +1,159 @@
+/* Stili per la navbar */
+.navbar {
+  position: fixed; /* Fissa la navbar in cima alla pagina */
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* I link sono allineati a sinistra, il titolo è centrato */
+  align-items: center; /* Allinea verticalmente i contenuti */
+  z-index: 1000; /* Assicura che la navbar sia sopra gli altri contenuti */
+  padding: 0 20px; /* Aggiungi spazio a sinistra e destra */
+  margin-top: 0; /* Rimuove il margine sopra la navbar per allinearla direttamente con la parte superiore della finestra */
+  height: 80px; /* Imposta un'altezza fissa per la navbar */
+  background: linear-gradient(45deg, rgba(40, 40, 40, 0.8), rgba(60, 60, 60, 0.9)); /* Trasparenza con gradiente */
+  backdrop-filter: blur(10px); /* Aggiunge l'effetto di sfocatura sullo sfondo */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Bordi sottili con trasparenza */
+}
+
+/* Linee orizzontali nere sopra e sotto la navbar */
+.navbar::before, .navbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2); /* Colore leggero per l'effetto futuristico */
+}
+
+.navbar::before {
+  top: 0; /* Linea sopra la navbar */
+}
+
+.navbar::after {
+  bottom: 0; /* Linea sotto la navbar */
+}
+
+/* Il titolo nella navbar */
+.title {
+  font-size: 36px; /* Aumenta la dimensione del font per il titolo */
+  color: #fff; /* Colore bianco per il titolo */
+  text-align: center;
+  font-family: 'Raleway', sans-serif; /* Font personalizzato per il titolo */
+  text-transform: uppercase; /* Rende il testo tutto maiuscolo */
+  font-weight: bold; /* Rende il font in grassetto */
+  margin: 0; /* Rimuove il margine predefinito */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* Centra il titolo */
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.4), 0 0 15px rgba(255, 255, 0, 0.5); /* Effetto neon ridotto */
+}
+
+/* Menu della navbar (a sinistra) */
+.navbar-menu {
+  display: flex;
+  justify-content: flex-start; /* Allinea i link a sinistra */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 20px;
+}
+
+/* Link della navbar */
+.navbar-link {
+  color: #fff; /* Colore bianco per il testo */
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-link:hover {
+  text-decoration: underline;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 1), 0 0 20px rgba(255, 0, 255, 1); /* Effetto neon sui link */
+}
+
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; /* Posiziona la linea sotto il link */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-link:hover::after {
+  transform: scaleX(1); /* Linea animata sotto i link */
+}
+
+/* Bottoni della navbar */
+.navbar-buttons {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  right: 70px;
+}
+
+/* Stili comuni per i bottoni (login, sign up, logout) */
+.navbar-buttons button {
+  padding: 8px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+/* Bottone di login */
+.navbar-buttons .btn-login {
+  background-color: #8a9093; /* Grigio come il bottone di login */
+  color: #fff;
+}
+
+.navbar-buttons .btn-login:hover {
+  background-color: #8a9093;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Bottone di sign-up */
+.navbar-buttons .btn-signup {
+  background-color: #8a9093; /* Grigio per il bottone di sign-up */
+  color: #fff;
+}
+
+.navbar-buttons .btn-signup:hover {
+  background-color: #cb2d4f; /* Rosso quando ci passi sopra */
+  transform: scale(1.05);
+}
+
+/* Bottone di logout */
+.navbar-buttons .btn-logout {
+  background-color: #8a9093; /* Grigio come il bottone di login */
+  color: #fff;
+}
+
+.navbar-buttons .btn-logout:hover {
+  background-color: #cb2d4f; /* Rosso come il bottone di sign-up */
+  transform: scale(1.05);
+}
+
+/* Stili per il contenuto principale */
+.app-container {
+  text-align: center;
+  margin-top: 150px;
+}
+
+h1 {
+  color: #2c3e50;
+}
+
+:host {
+  font-family: 'Raleway', sans-serif;
+}

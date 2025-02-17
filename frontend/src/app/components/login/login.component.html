@@ -1,0 +1,41 @@
+<div class="login-container">
+    <div class="card shadow-sm p-4">
+      <h1 class="card-title text-center mb-4">Accedi</h1>
+  
+      <form (ngSubmit)="onSubmit()">
+        <!-- Username Field -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Nome Utente</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            [(ngModel)]="user.username"
+            name="username"
+            required
+            placeholder="Inserisci il tuo nome utente"
+          />
+        </div>
+  
+        <!-- Password Field -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            [(ngModel)]="user.password"
+            name="password"
+            required
+            placeholder="Inserisci la tua password"
+          />
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100">Accedi</button>
+      </form>
+  
+      <p class="text-center mt-3">Non hai un account? <a href="/signup" class="text-decoration-none">Registrati</a></p>
+    </div>
+  </div>
+  

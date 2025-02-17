@@ -1,0 +1,197 @@
+/* Import Bootstrap */
+@use 'bootstrap/scss/bootstrap' as *;
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: #2d3748;
+  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: 2;
+  padding: 20px;
+
+  &.open {
+    left: 0;
+  }
+
+  .sidebar-content {
+    color: white;
+    font-size: 16px;
+
+    .user-profile {
+      margin-bottom: 20px;
+
+      .profile-info {
+        display: flex;
+        align-items: center;
+        margin-top: 50px;
+
+        .profile-icon {
+          background-color: #4a5568;
+          color: white;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          margin-left: 125px; 
+        }
+
+        .profile-details {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .settings {
+      margin-bottom: 20px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 10px;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .close-conversation {
+          background: none;
+          border: none;
+          color: white;
+          cursor: pointer;
+          margin-left: -20px;
+
+          &:hover {
+            color: red;
+          }
+        }
+      }
+    }
+
+    .new-conversation {
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #2c5282;
+      }
+    }
+  }
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle-button {
+  position: absolute;
+  top: 110px;
+  left: 20px;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 3;
+
+  &:hover {
+    background-color: #2c5282;
+  }
+}
+
+/* Nascondi la X quando la sidebar è chiusa */
+.sidebar:not(.open) .close-conversation {
+  display: none;
+}
+
+/* Mostra la X quando la sidebar è aperta */
+.sidebar.open .close-conversation {
+  display: block;
+}
+
+/* Modal Profilo */
+.user-profile-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  overflow: hidden;
+
+  .profile-header {
+    background-color: #3182ce;
+    color: white;
+    padding: 10px 15px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+
+    .close-profile {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: #f56565;
+      }
+    }
+  }
+
+  .profile-content {
+    padding: 20px;
+    text-align: center;
+
+    .profile-icon {
+      background-color: #4a5568;
+      color: white;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+/* home.component.scss */
+
+/* Seleziona il corpo del componente o un elemento specifico della pagina */
+:host {
+    display: block;
+    width: 100%;
+    height: 100vh; 
+    background: url('/assets/images/animazione 2.gif') no-repeat center center fixed;
+    //background: url(https://img.freepik.com/vettori-gratuito/circuiti-sfondo-digitale-sfumato-blu-e-rosso_23-2148821701.jpg) no-repeat center center fixed;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+  }
+  
+  .home-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white; /* Per assicurarsi che il testo sia visibile */
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); /* Overlay scuro per il testo */
+  
+    /* Stile specifico per il titolo */
+    h1 {
+      font-size: 30px; /* Riduci la dimensione del testo */
+      margin-bottom: 10px; /* Aggiungi spazio sotto il titolo */
+    }
+  
+    /* Stile per il paragrafo */
+    p {
+      font-size: 20px; /* Dimensione del testo del paragrafo */
+    }
+  }
+  
+  /* Aggiunta di un'immagine sopra l'immagine di sfondo */
+.foreground-image {
+  position: absolute;
+  top: 610px; /* Posizione dall'alto */
+  left: 20px; /* Posizione da sinistra */
+  width: 100px; /* Larghezza dell'immagine */
+  height: auto; /* Mantieni proporzioni */
+  z-index: 1; /* Assicurati che sia sopra lo sfondo */
+}
+  

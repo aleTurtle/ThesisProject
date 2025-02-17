@@ -1,0 +1,82 @@
+const express = require("express");
+const router = express.Router();
+const axios = require("axios"); // Per inviare richieste HTTP
+
+/**
+ * @swagger
+ * /api/chat:
+ *   post:
+ *     summary: Invia un messaggio al server Rasa
+ *     description: Questo endpoint invia un messaggio al server Rasa e restituisce la risposta.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               message:
+ *                 type: string
+ *                 description: Messaggio da inviare al bot.
+ *                 example: "Ciao, quali corsi sono disponibili?"
+ *               sender:
+ *                 type: string
+ *                 description: ID dell'utente che invia il messaggio.
+ *                 example: "utente_123"
+ *     responses:
+ *       200:
+ *         description: Risposta dal server Rasa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 responses:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                   example: [
+ *                     { "recipient_id": "utente_123", "text": "Benvenuto! Ecco i corsi disponibili..." }
+ *                   ]
+ *       400:
+ *         description: Input non valido
+ *       500:
+ *         description: Errore interno del server
+ */
+
+router.post("/", async (req, res) => {
+  const { message, sender } = req.body;
+
+  if (!message || !sender) {
+    return res.status(400).json({ error: "Message and sender are required" });
+  }
+
+  try {
+    // Invia il messaggio al server Rasa
+    const rasaResponse = await axios.post("http://localhost:5005/webhooks/rest/webhook", {
+      sender, // ID del mittente
+      message, // Messaggio inviato dall'utente
+    });
+
+    // Invia la risposta di Rasa al client
+    res.json({ responses: rasaResponse.data });
+  } catch (error) {
+    console.error("Errore durante la comunicazione con Rasa:", error.message);
+
+    if (error.response) {
+      // Rasa ha risposto con un errore
+      console.error("Dettagli errore Rasa:", error.response.data);
+      res.status(error.response.status).json({ error: error.response.data });
+    } else if (error.request) {
+      // Nessuna risposta da Rasa
+      console.error("Nessuna risposta ricevuta da Rasa:", error.request);
+      res.status(500).json({ error: "Nessuna risposta dal server Rasa" });
+    } else {
+      // Altro tipo di errore
+      console.error("Errore durante la richiesta:", error.message);
+      res.status(500).json({ error: "Errore durante l'elaborazione del messaggio" });
+    }
+  }
+});
+
+module.exports = router;

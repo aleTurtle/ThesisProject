@@ -1,0 +1,18 @@
+// models/Faculty.js
+const mongoose = require('mongoose');
+
+const FacultySchema = new mongoose.Schema({
+
+  name: {
+     type: String,
+      required: true 
+    },
+
+  description: String,
+});
+
+module.exports = mongoose.model('Faculty', FacultySchema);
+
+
+//in questo modo aggiungere nuove facoltà 
+//sarà semplicemente una questione di inserire nuovi documenti nella collezione Faculty.

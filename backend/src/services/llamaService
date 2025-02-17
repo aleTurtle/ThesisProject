@@ -1,0 +1,42 @@
+// Importa il motore Llama invece di Rasa
+const LlamaEngine = require('../nlp/llamaEngine'); // Assicurati che il percorso sia corretto
+
+// Inizializza il motore NLP in base alla configurazione
+let nlpEngine;
+if (process.env.NLP_ENGINE === 'llama') {
+  nlpEngine = new LlamaEngine(); // Usa LlamaEngine per il motore Llama
+}
+// Altri motori NLP potrebbero essere aggiunti qui, ad esempio:
+// else if (process.env.NLP_ENGINE === 'rasa') {
+//   nlpEngine = new RasaEngine(process.env.ENGINE_BASE_URL);
+// }
+// else if (process.env.NLP_ENGINE === 'dialogflow') {
+//   nlpEngine = new DialogflowEngine(process.env.ENGINE_BASE_URL);
+// }
+
+const sendMessageToNLP = async (message) => {
+  try {
+    console.log("Invio messaggio a Llama2:", message);
+
+    // Invia il messaggio al motore Llama tramite il metodo processMessage
+    const nlpResponse = await nlpEngine.processMessage(message);
+
+    // Verifica che la risposta non sia vuota o undefined
+    if (!nlpResponse) {
+      console.error("Errore: Nessuna risposta ricevuta dal motore NLP");
+      throw new Error("Nessuna risposta dal motore NLP");
+    }
+
+    // Log della risposta ricevuta
+    console.log("Risposta da Llama2:", nlpResponse);
+
+    // Restituisce direttamente la risposta testuale
+    return nlpResponse;
+
+  } catch (error) {
+    console.error("Errore durante la comunicazione con il motore NLP:", error.message);
+    throw new Error('Errore nel comunicare con il motore NLP');
+  }
+};
+
+module.exports = { sendMessageToNLP };

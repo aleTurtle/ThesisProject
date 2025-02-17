@@ -1,0 +1,34 @@
+const express = require('express');
+const { signup } = require('../controllers/signupController');
+const router = express.Router();
+
+/**
+ * @swagger
+ * /api/auth/signup:
+ *   post:
+ *     summary: Registra un nuovo utente
+ *     tags: [Autenticazione]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: Nome utente scelto
+ *                 example: username123
+ *               password:
+ *                 type: string
+ *                 description: Password dell'utente
+ *                 example: mypassword123
+ *     responses:
+ *       201:
+ *         description: Utente registrato con successo
+ *       400:
+ *         description: Dati mancanti o non validi
+ */
+router.post('/signup', signup);
+
+module.exports = router;

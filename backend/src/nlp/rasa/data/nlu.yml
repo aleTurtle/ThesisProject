@@ -1,0 +1,59 @@
+version: "3.1"
+nlu:
+  - intent: greet
+    examples: |
+      - Ciao
+      - Salve
+      - Buongiorno
+      - Hey
+      - Ciao bot
+
+  - intent: goodbye
+    examples: |
+      - Arrivederci
+      - A presto
+      - Ci vediamo
+      - Addio
+
+  - intent: inform_courses
+    examples: |
+      - Parlami dei corsi
+      - Voglio informazioni sui corsi
+      - Quali corsi offrite?
+      - Puoi spiegarmi di cosa trattano i corsi?
+
+  - intent: ask_help
+    examples: |
+      - Ho bisogno di aiuto
+      - Puoi aiutarmi?
+      - Ho un problema
+      - Come funziona questo bot?
+
+  - intent: provide_course_type
+    examples: |
+      - Voglio sapere di più su Python
+      - Dimmi
+
+  - intent: ask_lessons
+    examples: |
+      - Voglio sapere gli orari delle lezioni
+      - Quali lezioni ci sono dal [12 dicembre](start_date) al [20 dicembre](end_date)?
+      - Mostrami gli orari delle lezioni per questa settimana
+      - Puoi dirmi quando ci sono le lezioni?
+      - Quali sono gli orari delle lezioni per domani?
+      - Hai informazioni sulle lezioni di questa settimana?
+      - Mostrami il calendario delle lezioni per questo mese
+      - Voglio sapere quali lezioni ci sono oggi
+      - Mostrami tutte le lezioni dal [10 ottobre](start_date) al [18 ottobre](end_date)
+  
+  - intent: ask_lessons_by_year
+    examples: |
+      - Mostrami le lezioni per l'anno [1](year)
+      - Lezioni del [primo](year)
+      - Voglio le lezioni per il [terzo](year) anno
+      - Quali sono le lezioni per il [secondo](year) anno
+      - Dammi tutte le lezioni dell'anno [2](year)
+      - Mostrami il programma per l'anno [3](year)
+      - Le lezioni per l'anno [4](year)
+
+  

@@ -1,0 +1,10 @@
+// facultyService.js
+const Faculty = require('../models/Faculty');
+
+exports.getFacultyById = async (facultyId) => {
+  return await Faculty.findById(facultyId);
+};
+
+exports.getDefaultFaculty = async () => {
+  return await Faculty.findOne({ name: 'Facoltà di Informatica' }); // Per esempio
+};

@@ -1,0 +1,71 @@
+const express = require("express");
+const router = express.Router();
+const Conversation = require("../models/Conversation"); // Modello Mongoose per le conversazioni
+
+/**
+ * @swagger
+ * /api/conversations/user/{userId}:
+ *   get:
+ *     summary: Recupera le conversazioni di un utente
+ *     description: Questo endpoint restituisce tutte le conversazioni associate a un determinato utente.
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID dell'utente per cui recuperare le conversazioni.
+ *         schema:
+ *           type: string
+ *           example: "63a9f0ea7f3f1a6b82b8d1a2"
+ *     responses:
+ *       200:
+ *         description: Conversazioni recuperate con successo.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 conversations:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                   example: [
+ *                     {
+ *                       "_id": "64b8f99e7f9f1b2c3d4e5678",
+ *                       "user": {
+ *                         "_id": "63a9f0ea7f3f1a6b82b8d1a2",
+ *                         "username": "utente123"
+ *                       },
+ *                       "messages": [
+ *                         { "message": "Ciao, vorrei sapere di più sui corsi disponibili.", "sender": "user" },
+ *                         { "message": "Ecco i corsi disponibili...", "sender": "bot" }
+ *                       ],
+ *                       "status": "in corso",
+ *                       "startedAt": "2024-01-01T10:00:00Z",
+ *                       "endedAt": null
+ *                     }
+ *                   ]
+ *       500:
+ *         description: Errore interno del server.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Errore del server."
+ */
+
+router.get("/user/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const conversations = await Conversation.find({ user: userId }).populate("user");
+    return res.status(200).json({ conversations });
+  } catch (error) {
+    console.error("Errore nel recupero delle conversazioni:", error);
+    res.status(500).json({ error: "Errore del server." });
+  }
+});
+
+module.exports = router;

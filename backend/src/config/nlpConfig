@@ -1,0 +1,20 @@
+//const RasaEngine = require('./rasaEngine'); // Importa la classe
+
+if (!process.env.ENGINE_BASE_URL) {
+  throw new Error("La variabile di ambiente RASA_BASE_URL non è definita");
+}
+
+const BASE_URL = process.env.ENGINE_BASE_URL;
+const rasaEngine = new RasaEngine(BASE_URL);
+
+// Invia un messaggio a Rasa
+(async () => {
+  try {
+    const response = await rasaEngine.sendMessage("Ciao, come stai?");
+    console.log("Risposta da Rasa:", response);
+  } catch (error) {
+    console.error("Errore:", error.message);
+  }
+})();
+
+module.exports = rasaEngine;

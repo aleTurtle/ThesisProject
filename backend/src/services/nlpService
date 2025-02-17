@@ -1,0 +1,28 @@
+// RasaEngine importato come esempio, in futuro si potrà importare un altro motore NLP
+const RasaEngine = require('../nlp/rasaEngine');
+// Se cambi motore NLP, importa qui la nuova libreria o classe
+// const DialogflowEngine = require('../nlp/dialogflowEngine'); 
+
+// Inizializza il motore NLP in base alla configurazione
+let nlpEngine;
+if (process.env.NLP_ENGINE === 'rasa') {
+  nlpEngine = new RasaEngine(process.env.ENGINE_BASE_URL);
+}
+// Altri motori NLP potrebbero essere aggiunti qui, ad esempio:
+// else if (process.env.NLP_ENGINE === 'dialogflow') {
+//   nlpEngine = new DialogflowEngine(process.env.ENGINE_BASE_URL);
+// }
+
+const sendMessageToNLP = async (message) => {
+  try {
+    // Invia il messaggio al motore NLP configurato
+    const nlpResponse = await nlpEngine.sendMessage(message);
+    const botResponseText = nlpResponse[0]?.text || 'Errore nella risposta del bot';
+    return botResponseText;
+  } catch (error) {
+    console.error("Errore durante la comunicazione con il motore NLP:", error.message);
+    throw new Error('Errore nel comunicare con il motore NLP');
+  }
+};
+
+module.exports = { sendMessageToNLP };

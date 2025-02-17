@@ -1,0 +1,38 @@
+const Conversation = require('../models/conversation');
+
+class ConversationService {
+
+  // Crea una nuova conversazione e aggiunge il primo messaggio
+  async createConversationWithMessage(userId, message) {
+
+    // Verifica se userId è valido
+    if (!userId) {
+      throw new Error('userId è obbligatorio');
+    }
+    // devo scrivere che l'userid in questo caso è di quello autenticato
+
+
+    
+    // Crea una nuova conversazione
+    const newConversation = new Conversation({
+      userId,
+      messages: [message], // Inizia la conversazione con il primo messaggio
+    });
+    await newConversation.save();
+    console.log('Nuova conversazione creata con messaggio:', newConversation);
+    return newConversation;
+  }
+
+  async addMessageToConversation(conversationId, message) {
+    const conversation = await Conversation.findById(conversationId);
+    if (!conversation) {
+      throw new Error('Conversazione non trovata');
+    }
+    conversation.messages.push(message); // Aggiungi il messaggio
+    await conversation.save(); // Salva la conversazione aggiornata
+    console.log('Messaggio aggiunto:', message);
+    return conversation;
+  }
+}
+
+module.exports = new ConversationService();

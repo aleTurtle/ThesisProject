@@ -1,0 +1,17 @@
+# Ignora la cartella node_modules nella cartella principale
+/node_modules/
+
+# Ignora il file package.json nella cartella principale
+/package.json
+
+# Ignora il file package-lock.json nella cartella principale
+/package-lock.json
+
+# Ignora il file .env nella cartella principale
+.env
+
+# Ignora file temporanei, configurazioni IDE, ecc.
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

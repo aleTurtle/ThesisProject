@@ -1,0 +1,67 @@
+// Importiamo axios per le richieste HTTP esterne
+const axios = require('axios');
+
+// Importiamo moment.js per la gestione delle date
+const moment = require('moment');
+
+// Importiamo la configurazione delle facoltà
+const facolta = require('./src/config/facoltàID'); //ricavo il file delle configurazioni per ogni facoltà 
+
+// Funzione per calcolare le date di inizio (start) e fine (end) della settimana
+function calcolaStartEnd() {
+    const oggi = moment(); // Data corrente
+    const giorniAlLunedi = oggi.isoWeekday() - 1; // Lunedì = 1 in moment.js
+
+    const start = oggi.clone().subtract(giorniAlLunedi, 'days'); // Calcola il lunedì della settimana
+    const end = start.clone().add(4, 'days'); // Aggiungi 4 giorni per arrivare al venerdì
+
+    return { start: start.format('YYYY-MM-DD'), end: end.format('YYYY-MM-DD') };
+}
+
+// Funzione per recuperare l'endpoint delle lezioni per una specifica facoltà
+function ottieniEndpointLezioni(codiceFacolta) {
+    if (!facolta[codiceFacolta] || !facolta[codiceFacolta].endpoints.lezioni) {
+        throw new Error(`L'endpoint delle lezioni non è configurato per la facoltà: ${codiceFacolta}`);
+    }
+    return facolta[codiceFacolta].endpoints.lezioni;
+}
+
+// Funzione per recuperare i dati dall'API
+async function ottieniOrari(codiceFacolta, start, end) {
+    const url = ottieniEndpointLezioni(codiceFacolta); // Ottieni l'endpoint dinamico
+    try {
+        const response = await axios.get(url, { params: { start, end } });
+        return response.data; // Restituisce i dati come array di lezioni
+    } catch (error) {
+        console.error('Errore nel recupero degli orari:', error.message);
+        throw new Error('Non è stato possibile recuperare gli orari delle lezioni.');
+    }
+}
+
+// Funzione per formattare i dati delle lezioni in una stringa leggibile
+function formattaLezioni(lezioni) {
+    if (lezioni.length === 0) {
+        return "Non ci sono lezioni programmate per il periodo selezionato.";
+    }
+    let messaggio = '';
+    lezioni.forEach(lezione => {
+        messaggio += `${lezione.giorno} - ${lezione.ora}: ${lezione.materia} con ${lezione.docente}\n`;
+    });
+    return messaggio;
+}
+
+// Funzione principale da utilizzare nel chatbot
+async function recuperaOrariLezioni(codiceFacolta) {
+    try {
+        const { start, end } = calcolaStartEnd();
+        const lezioni = await ottieniOrari(codiceFacolta, start, end);
+        return formattaLezioni(lezioni); // Restituisce una stringa leggibile
+    } catch (error) {
+        return "Si è verificato un errore nel recupero degli orari. Riprova più tardi.";
+    }
+}
+
+// Esportare la funzione principale per il chatbot
+module.exports = {
+    recuperaOrariLezioni
+};

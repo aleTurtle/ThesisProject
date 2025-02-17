@@ -1,0 +1,34 @@
+const express = require('express');
+const { login } = require('../controllers/authController');
+const router = express.Router();
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Effettua il login dell'utente
+ *     tags: [Autenticazione]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: Nome utente per l'accesso
+ *                 example: username123
+ *               password:
+ *                 type: string
+ *                 description: Password dell'utente
+ *                 example: mypassword123
+ *     responses:
+ *       200:
+ *         description: Login effettuato con successo
+ *       401:
+ *         description: Credenziali non valide
+ */
+router.post('/login', login);
+
+module.exports = router;

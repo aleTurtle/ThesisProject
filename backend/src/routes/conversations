@@ -1,0 +1,102 @@
+const express = require("express");
+const router = express.Router();
+const Conversation = require("../models/conversation"); // Modello Mongoose per le conversazioni
+const Message = require("../models/message");
+
+/**
+ * @swagger
+ * /api/conversations:
+ *   post:
+ *     summary: Avvia una nuova conversazione
+ *     description: Crea una nuova conversazione e salva il primo messaggio inviato dall'utente.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: ID dell'utente che avvia la conversazione.
+ *                 example: "63a9f0ea7f3f1a6b82b8d1a2"
+ *               message:
+ *                 type: string
+ *                 description: Messaggio iniziale dell'utente.
+ *                 example: "Ciao, vorrei sapere di più sui corsi disponibili."
+ *     responses:
+ *       201:
+ *         description: Conversazione creata con successo.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 conversation:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                       example: "64b8f99e7f9f1b2c3d4e5678"
+ *                     user:
+ *                       type: string
+ *                       example: "63a9f0ea7f3f1a6b82b8d1a2"
+ *                     messages:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                       example: [
+ *                         { "message": "Ciao, vorrei sapere di più sui corsi disponibili.", "sender": "user" }
+ *                       ]
+ *                     status:
+ *                       type: string
+ *                       example: "in corso"
+ *                     startedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-01-01T10:00:00Z"
+ *       400:
+ *         description: Input non valido.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "User ID e messaggio sono obbligatori."
+ *       500:
+ *         description: Errore interno del server.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Errore del server."
+ */
+
+router.post("/", async (req, res) => {
+  const { userId, message } = req.body;
+
+  if (!userId || !message) {
+    return res.status(400).json({ error: "User ID e messaggio sono obbligatori." });
+  }
+
+  try {
+    // Crea una nuova conversazione
+    const newConversation = new Conversation({
+      user: userId,
+      messages: [{ message, sender: "user" }],
+    });
+
+    await newConversation.save();
+    return res.status(201).json({ conversation: newConversation });
+  } catch (error) {
+    console.error("Errore nella creazione della conversazione:", error);
+    res.status(500).json({ error: "Errore del server." });
+  }
+});
+
+module.exports = router;

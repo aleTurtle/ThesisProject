@@ -1,0 +1,8 @@
+// middlewares/facultyMiddleware.js
+module.exports = (req, res, next) => {
+  const facultyId = req.headers['faculty-id'];  // Assumendo che il contesto della facoltà sia passato nell'header
+  if (!facultyId || facultyId !== process.env.DEFAULT_FACULTY_ID) {
+    return res.status(403).json({ message: 'Access denied' });
+  }
+  next();
+};

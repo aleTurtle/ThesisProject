@@ -1,0 +1,10 @@
+// services/courseService.js
+const Course = require('../models/Course');
+
+exports.getCoursesByFaculty = async (facultyId) => {
+  return await Course.find({ facultyId: facultyId });
+};
+
+exports.getCourseByNameAndFaculty = async (courseName, facultyId) => {
+  return await Course.findOne({ name: courseName, facultyId: facultyId });
+};

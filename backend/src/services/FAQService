@@ -1,0 +1,7 @@
+// services/faqService.js
+
+const FAQ = require('../models/FAQ');
+
+exports.getFAQsByFaculty = async (facultyId) => {
+  return await FAQ.find({ facultyId: facultyId });
+};

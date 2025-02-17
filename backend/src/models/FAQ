@@ -1,0 +1,14 @@
+// models/FAQ.js
+
+const mongoose = require('mongoose');
+
+const FAQSchema = new mongoose.Schema({
+  question: String,
+  answer: String,
+  facultyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Faculty',
+  },
+});
+
+module.exports = mongoose.model('FAQ', FAQSchema);

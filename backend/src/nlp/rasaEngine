@@ -1,0 +1,72 @@
+const axios = require('axios'); // Per inviare richieste HTTP al server Rasa
+
+class RasaEngine {
+  constructor(baseUrl) {
+    if (!baseUrl) {
+      throw new Error("Il parametro baseUrl è obbligatorio.");
+    }
+    this.baseUrl = baseUrl; // URL base del server Rasa
+  }
+
+  /**
+   * Invia un messaggio utente al server Rasa e restituisce la risposta.
+   * @param {string} message - Il messaggio dell'utente.
+   * @returns {Promise<object>} - La risposta del server Rasa.
+   */
+  async sendMessage(message) {
+    if (!message) {
+      throw new Error("Il messaggio è obbligatorio.");
+    }
+
+    try {
+      const response = await axios.post(`${this.baseUrl}/webhooks/rest/webhook`, {
+        sender: "user", // ID del mittente (puoi cambiarlo se necessario)
+        message: message,
+      });
+      return response.data; // Ritorna i dati della risposta
+    } catch (error) {
+      console.error("Errore durante la comunicazione con Rasa:", error.message);
+      throw new Error("Impossibile connettersi al server Rasa.");
+    }
+  }
+
+  /**
+   * Recupera lo stato attuale della conversazione dal tracker di Rasa.
+   * @param {string} senderId - L'ID del mittente (utente).
+   * @returns {Promise<object>} - Lo stato del tracker.
+   */
+  async getTrackerState(senderId) {
+    if (!senderId) {
+      throw new Error("Il senderId è obbligatorio.");
+    }
+
+    try {
+      const response = await axios.get(`${this.baseUrl}/conversations/${senderId}/tracker`);
+      return response.data;
+    } catch (error) {
+      console.error("Errore durante il recupero dello stato del tracker:", error.message);
+      throw new Error("Impossibile recuperare lo stato del tracker.");
+    }
+  }
+
+  /**
+   * Reimposta lo stato della conversazione (tracker) per un determinato utente.
+   * @param {string} senderId - L'ID del mittente (utente).
+   * @returns {Promise<object>} - Lo stato reimpostato del tracker.
+   */
+  async resetConversation(senderId) {
+    if (!senderId) {
+      throw new Error("Il senderId è obbligatorio.");
+    }
+
+    try {
+      const response = await axios.post(`${this.baseUrl}/conversations/${senderId}/tracker/events`, []);
+      return response.data;
+    } catch (error) {
+      console.error("Errore durante la reimpostazione del tracker:", error.message);
+      throw new Error("Impossibile reimpostare il tracker.");
+    }
+  }
+}
+
+module.exports = RasaEngine;

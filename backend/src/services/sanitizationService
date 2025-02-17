@@ -1,0 +1,13 @@
+//servizio per sanificare l'input dell'utente da tag o script malevoli potenzialmente iniettabili nell'app
+
+const sanitizeHtml = require('sanitize-html'); //utilizziamo questa libreria per NodeJS
+
+// Configura il filtro per la sanitizzazione
+const sanitizeInput = (input) => {
+  return sanitizeHtml(input, {
+    allowedTags: [], // Nessun tag HTML permesso
+    allowedAttributes: {}, // Nessun attributo permesso
+  });
+};
+
+module.exports = { sanitizeInput };

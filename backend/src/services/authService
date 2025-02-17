@@ -1,0 +1,31 @@
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+
+class AuthService {
+  // Trova un utente nel database
+  async findUserByUsername(username) {
+    return await User.findOne({ username });
+  }
+
+  // Verifica la password
+  async verifyPassword(user, password) {
+    if (!user) return false;
+    return await user.comparePassword(password);
+  }
+
+  // Genera un token JWT
+  generateToken(userId) {
+    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  }
+
+  // Prepara l'oggetto utente da inviare come risposta
+  getUserResponse(user) {
+    return {
+      id: user._id, // O `user.id`, a seconda del tuo schema
+      username: user.username,
+      role: user.role, // Aggiungi eventuali altri campi necessari
+    };
+  }
+}
+
+module.exports = new AuthService();

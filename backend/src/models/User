@@ -1,0 +1,49 @@
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
+const userSchema = new mongoose.Schema({
+
+  // Nome dell'utente
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+
+  // Password dell'utente
+  password: {
+    type: String,
+    required: true,
+  },
+
+  // Ruolo (es. studente, professore, admin)
+  role: {
+    type: String,
+    enum: ['student', 'professor', 'admin'],
+    default: 'student',
+  },
+
+  // Data di creazione dell'account
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+// Middleware per cifrare la password prima di salvare l'utente
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+// Metodo per confrontare la password
+userSchema.methods.comparePassword = function (password) {
+  return bcrypt.compare(password, this.password);
+};
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

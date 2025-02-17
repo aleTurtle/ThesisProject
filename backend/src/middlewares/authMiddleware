@@ -1,0 +1,19 @@
+const jwt = require('jsonwebtoken');
+
+const authMiddleware = (req, res, next) => {
+  const token = req.header('Authorization');
+  
+  if (!token) {
+    return res.status(401).json({ message: 'Accesso non autorizzato' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);  //    JWT_SECRET???? che valore gli devo dare nel file .env??
+    req.user = decoded; // Aggiunge l'ID dell'utente alla richiesta
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Token non valido' });
+  }
+};
+
+module.exports = authMiddleware;

@@ -1,0 +1,49 @@
+const mongoose = require('mongoose');
+
+// Reimporta lo schema del messaggio
+const { messageSchema }  = require('./message'); // Modifica il percorso in base alla tua struttura
+
+// Schema per le conversazioni
+const conversationSchema = new mongoose.Schema({
+
+// ID unico per ogni utente, generato automaticamente
+Id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    unique: true,
+    default: () => new mongoose.Types.ObjectId(), // Genera un ObjectId automaticamente
+  },
+
+  userId: {
+    type: String, // Identificativo dell'utente
+    required: true,
+  },
+  messages: {
+    type: [messageSchema], // Array di messaggi (collegato al tuo modello esistente)
+    default: [], // Valore di default: nessun messaggio all'inizio
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now, // Timestamp di creazione della conversazione
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now, // Timestamp di ultima modifica della conversazione
+  },
+  status: {
+    type: String,
+    enum: ['active', 'closed'], // Stato della conversazione
+    default: 'active',
+  },
+});
+
+// Middleware per aggiornare il campo `updatedAt` automaticamente
+conversationSchema.pre('save', function (next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+// Controlla se il modello esiste già prima di crearlo
+const Conversation = mongoose.models.Conversation || mongoose.model('Conversation', conversationSchema);
+
+module.exports = Conversation;

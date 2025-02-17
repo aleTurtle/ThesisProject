@@ -1,0 +1,39 @@
+const AuthService = require('../services/authService');
+const { sanitizeInput } = require('../services/sanitizationService');
+
+const login = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Sanifica l'input dell'utente
+    const sanitizedUsername = sanitizeInput(username);
+    const sanitizedPassword = sanitizeInput(password);
+
+    // Trova l'utente
+    // Se l'utente non viene trovato, restituisci un messaggio specifico
+    const user = await AuthService.findUserByUsername(sanitizedUsername);
+    if (!user) {
+      return res.status(404).json({ message: 'Utente non trovato' });
+    }
+
+    // Verifica la password
+    const isMatch = await AuthService.verifyPassword(user, sanitizedPassword);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Credenziali non valide' });
+    }
+
+    // Genera il token
+    const token = AuthService.generateToken(user._id);
+
+    // Invia la risposta
+    res.json({
+      token,
+      user: AuthService.getUserResponse(user),
+    });
+  } catch (error) {
+    console.error('Errore durante il login:', error);
+    res.status(500).json({ message: 'Errore del server' });
+  }
+};
+
+module.exports = { login };

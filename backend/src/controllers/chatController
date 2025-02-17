@@ -1,0 +1,56 @@
+const { Message } = require('../models/Message'); // Importa il modello Message
+const nlpService = require('../services/llamaService');
+const { sanitizeInput } = require('../services/sanitizationService');
+
+// Funzione per gestire la conversazione
+const handleChatMessage = async (req, res) => {
+  const { message } = req.body; // Estrai il messaggio dal corpo della richiesta
+
+  if (!message) {
+    return res.status(400).json({ error: 'Message is required' });
+  }
+
+  try {
+    // Sanifica l'input dell'utente
+    const sanitizedMessage = sanitizeInput(message);
+    console.log("Messaggio sanificato:", sanitizedMessage);
+
+    // Invia il messaggio sanificato al motore NLP tramite il service
+    console.log("Invio messaggio a Llama2:", sanitizedMessage);
+    const botResponseText = await nlpService.sendMessageToNLP(sanitizedMessage);
+
+    // Verifica che la risposta non sia vuota o undefined
+    if (!botResponseText) {
+      console.error("Errore: Nessuna risposta ricevuta da Llama2.");
+      return res.status(500).json({ error: 'Nessuna risposta dal motore NLP' });
+    }
+
+    console.log("Risposta ricevuta da Llama2:", botResponseText);
+
+    // Salva il messaggio dell'utente nel database
+    const userMessage = new Message({
+      message: message,
+      sender: 'user',
+    });
+    await userMessage.save(); // Salva nel database
+    console.log("Messaggio dell'utente salvato nel database.");
+
+    // Salva la risposta del bot nel database
+    const botMessage = new Message({
+      message: botResponseText,
+      sender: 'bot',
+    });
+    await botMessage.save(); // Salva nel database
+    console.log("Risposta del bot salvata nel database.");
+
+    // Risposta al client con il messaggio del bot
+    res.status(200).json({ responses: [{ text: botResponseText }] });
+    console.log('Risposta inviata a Swagger:', { responses: [{ text: botResponseText }] });
+
+  } catch (error) {
+    console.error("Errore durante la gestione della conversazione:", error);
+    res.status(500).json({ error: 'Errore interno del server', details: error.message });
+  }
+};
+
+module.exports = { handleChatMessage };

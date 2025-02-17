@@ -1,0 +1,41 @@
+version: "3.1"
+stories:
+  - story: saluto e richiesta informazioni
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: inform_courses
+      - action: utter_courses_info
+
+  - story: saluto e richiesta aiuto
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_help
+      - action: utter_ask_help
+
+  - story: richiesta corso specifico
+    steps:
+      - intent: inform_courses
+      - action: utter_courses_info
+      - intent: provide_course_type
+      - action: action_provide_course_info
+
+  - story: saluto e arrivederci
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: goodbye
+      - action: utter_goodbye
+      
+  - story: chiedi_orari_lezioni
+    steps:
+      - intent: ask_lessons
+      - action: action_get_lessons
+
+  - story: chiedi lezioni per anno
+    steps:
+      - intent: ask_lessons_by_year
+        entities:
+          - year: 1  # L'anno specificato dall'utente
+      - action: action_get_lessons_by_year

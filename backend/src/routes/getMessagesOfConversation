@@ -1,0 +1,73 @@
+const express = require("express");
+const router = express.Router();
+const Conversation = require("../models/Conversation"); // Modello Mongoose per le conversazioni
+
+/**
+ * @swagger
+ * /api/conversations/{conversationId}/messages:
+ *   get:
+ *     summary: Recupera i messaggi di una conversazione
+ *     description: Questo endpoint restituisce tutti i messaggi associati a una specifica conversazione.
+ *     parameters:
+ *       - name: conversationId
+ *         in: path
+ *         required: true
+ *         description: ID della conversazione da cui recuperare i messaggi.
+ *         schema:
+ *           type: string
+ *           example: "63a9f0ea7f3f1a6b82b8d1a2"
+ *     responses:
+ *       200:
+ *         description: Elenco dei messaggi della conversazione.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 messages:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                   example: [
+ *                     { "message": "Ciao!", "sender": "user", "timestamp": "2024-01-01T10:00:00Z" },
+ *                     { "message": "Ciao! Come posso aiutarti?", "sender": "bot", "timestamp": "2024-01-01T10:00:01Z" }
+ *                   ]
+ *       404:
+ *         description: Conversazione non trovata.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Conversazione non trovata."
+ *       500:
+ *         description: Errore interno del server.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Errore del server."
+ */
+
+router.get("/:conversationId/messages", async (req, res) => {
+  const { conversationId } = req.params;
+
+  try {
+    const conversation = await Conversation.findById(conversationId);
+    if (!conversation) {
+      return res.status(404).json({ error: "Conversazione non trovata." });
+    }
+
+    return res.status(200).json({ messages: conversation.messages });
+  } catch (error) {
+    console.error("Errore nel recupero dei messaggi:", error.message);
+    res.status(500).json({ error: "Errore del server." });
+  }
+});
+
+module.exports = router;

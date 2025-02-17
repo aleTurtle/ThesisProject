@@ -1,0 +1,25 @@
+const facolta = {
+  "L-INF": {
+    nome: "Informatica",
+    endpoints: {
+      lezioni: "https://unifare.unicam.it/controller/ajaxController.php?filename=../didattica/controller/orari.php&class=OrariController&method=getDateLezioniByPercorsoCalendar&parametri[]=10028&parametri[]=false&parametri[]=0&start=2024-11-18T00:00:00+01:00&end=2024-11-23T00:00:00+01:00",
+      professori: "/facolta/Informatica/professori",
+      orari: "/facolta/Informatica/orari"
+    }
+  },
+  "L-ICD": {
+    nome: "Informatica per la comunicazione digitale",
+    endpoints: {
+      lezioni: "/facolta/ICD/lezioni",
+      professori: "/facolta/ICD/professori",
+      orari: "/facolta/ICD/orari"
+    }
+  },
+  "L-FI": {
+    nome: "Fisica",
+    endpoint: "/facolta/fisica",
+  },
+};
+
+// Esporta il modulo per usarlo altrove
+module.exports = facolta;

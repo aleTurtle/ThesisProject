@@ -1,0 +1,46 @@
+const express = require('express');
+const router = express.Router();
+const chatController = require('../controllers/chatController'); // Importa il controller
+
+/**
+ * @swagger
+ * /api/chat:
+ *   post:
+ *     summary: Invia un messaggio al bot e ricevi la risposta
+ *     description: Questo endpoint consente di inviare un messaggio al bot e ottenere una risposta basata sul motore NLP configurato.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               message:
+ *                 type: string
+ *                 description: Il messaggio che l'utente invia al bot
+ *                 example: "Ciao, come posso fare il login?"
+ *     responses:
+ *       200:
+ *         description: Risposta del bot
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 responses:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       text:
+ *                         type: string
+ *                         example: "Ciao! Come posso aiutarti oggi?"
+ *       400:
+ *         description: Errore nella richiesta, il messaggio è obbligatorio
+ *       500:
+ *         description: Errore interno del server
+ */
+
+router.post('/', chatController.handleChatMessage); // Chiamata al controller per inviare il messaggio al bot
+
+module.exports = router;

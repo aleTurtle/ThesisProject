@@ -1,0 +1,31 @@
+const mongoose = require('mongoose');
+
+const messageSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+  },
+  sender: {
+    type: String,
+    required: true,
+    enum: ['user', 'bot'], // Limita i valori a 'user' o 'bot'
+  },
+  
+
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+//const Message = mongoose.model('Message', messageSchema);
+//module.exports =  messageSchema ; //messageSchema; //anziche message// Crea ed esporta il modello
+
+ //Controlla se il modello esiste già prima di crearlo
+ const Message = mongoose.models.Message || mongoose.model('Message', messageSchema);
+
+//const Message = mongoose.model('Message', messageSchema);
+//module.exports = Message;
+
+// Esporta sia lo schema che il modello
+module.exports = { messageSchema, Message };

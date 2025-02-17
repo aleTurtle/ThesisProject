@@ -1,0 +1,86 @@
+// src/routes/lezioni.js
+
+const express = require('express');
+const axios = require('axios');  // Importa axios per fare richieste HTTP
+const router = express.Router();
+
+/**
+ * @swagger
+ * tags:
+ *   name: Lezioni
+ *   description: API per recuperare gli orari delle lezioni
+ */
+
+/**
+ * @swagger
+ * /lezioni:
+ *   get:
+ *     summary: Recupera tutte le lezioni
+ *     tags: [Lezioni]
+ *     parameters:
+ *       - in: query
+ *         name: start
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: '2024-11-18T00:00:00+01:00'
+ *       - in: query
+ *         name: end
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: '2024-11-23T00:00:00+01:00'
+ *     responses:
+ *       200:
+ *         description: Lista delle lezioni
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   giorno:
+ *                     type: string
+ *                   ora:
+ *                     type: string
+ *                   materia:
+ *                     type: string
+ *                   docente:
+ *                     type: string
+ *       500:
+ *         description: Errore del server
+ */
+
+// Gestione della route GET per ottenere le lezioni
+router.get('/', async (req, res) => {
+  const { start, end } = req.query;
+
+  // Verifica se sono stati passati i parametri 'start' e 'end'
+  if (!start || !end) {
+    return res.status(400).json({ error: "I parametri 'start' e 'end' sono richiesti" });
+  }
+
+  try {
+    // Costruisci l'URL con i parametri start e end
+    const url = `https://unifare.unicam.it/controller/ajaxController.php?filename=../didattica/controller/orari.php&class=OrariController&method=getDateLezioniByPercorsoCalendar&parametri[]=10028&parametri[]=false&parametri[]=0&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`;
+
+    // Fai la richiesta GET a quell'URL
+    const response = await axios.get(url);
+
+    // Verifica se la risposta contiene i dati
+    if (response.data) {
+      // Restituisci i dati come risposta
+      return res.status(200).json(response.data);
+    } else {
+      return res.status(404).json({ error: 'Lezioni non trovate' });
+    }
+
+  } catch (error) {
+    // Gestisci errori (es. errore di connessione, risposta invalida, ecc.)
+    console.error('Errore durante il recupero delle lezioni:', error);
+    return res.status(500).json({ error: 'Errore del server durante il recupero delle lezioni' });
+  }
+});
+
+module.exports = router;  // Esporta il router per essere usato in server.js

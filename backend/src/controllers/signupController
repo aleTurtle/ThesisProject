@@ -1,0 +1,36 @@
+const User = require('../models/User'); // Modello utente dal database
+const { sanitizeInput } = require('../services/sanitizationService'); //sanifica username e password
+
+// Signup logic
+const signup = async (req, res) => {
+  let { username, password, role } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username e password sono obbligatori.' });
+  }
+
+  try {
+
+    // Sanifica l'input utilizzando il servizio
+    username = sanitizeInput(username);
+    password = sanitizeInput(password);
+
+    // Verifica che l'username non sia già usato
+    const existingUser = await User.findOne({ username });
+
+    if (existingUser) {
+      return res.status(409).json({ error: 'Username già in uso.' });
+    }
+
+    // Crea un nuovo utente
+    const newUser = new User({ username, password, role });
+    await newUser.save();
+
+    return res.status(201).json({ message: 'Utente registrato con successo.' });
+  } catch (error) {
+    console.error('Errore nella registrazione:', error);
+    res.status(500).json({ error: 'Errore del server.' });
+  }
+};
+
+module.exports = { signup };

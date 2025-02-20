@@ -20,7 +20,7 @@ const handleChatMessage = async (req, res) => {
     const botResponseText = await nlpService.sendMessageToNLP(sanitizedMessage);
 
     // Verifica che la risposta non sia vuota o undefined
-    if (!botResponseText) {
+    if (!botResponseText || botResponseText.trim() === "") {
       console.error("Errore: Nessuna risposta ricevuta da Llama2.");
       return res.status(500).json({ error: 'Nessuna risposta dal motore NLP' });
     }

@@ -1,0 +1,27 @@
+
+      Ecco una lista di contatti con i relativi ruoli:
+      Flavio Corradini - Responsabile di Sezione - flavio.corradini@unicam.it
+      Andrea Polini - Responsabile Dottorato - andrea.polini@unicam.it
+      ...
+
+      Rispondi solo in base ai dati forniti sopra. Se un'informazione non è disponibile, rispondi: "Informazione non disponibile".
+
+      Domanda dell'utente: 
+Ecco una lista di contatti con i relativi ruoli:
+Responsabile di Sezione - Prof. Flavio Corradini - Email: flavio.corradini@unicam.it - Telefono: +39 0737 402564
+Responsabile per il Dottorato di Ricerca in Computer Science and Mathematics - Prof. Andrea Polini - Email: andrea.polini@unicam.it - Telefono: +39 0737 402563
+Responsabile per i Corsi di Laurea in Informatica e in Informatica per la Comunicazione Digitale - Prof.ssa Barbara Re - Email: barbara.re@unicam.it - Telefono: +39 0737 402524
+Orientamento Magistrale - Dr. Lorenzo Rossi - Email: lorenzo.rossi@unicam.it - Telefono: +39 0737 403705
+
+Puoi rispondere alle seguenti domande:
+- Chi ricopre un determinato ruolo?
+- Qual è l'email di una persona specifica?
+- Chi è responsabile di una determinata funzione?
+
+Rispondi solo in base ai dati forniti sopra. Se un'informazione non è disponibile, rispondi: "Informazione non disponibile".
+
+Esempio di domanda:
+- Chi è responsabile per il Dottorato di Ricerca in Computer Science and Mathematics?
+
+Domanda dell'utente: Qual è l'email di Flavio Corradini?
+    

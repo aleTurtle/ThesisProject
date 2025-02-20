@@ -1,5 +1,5 @@
 // Importa il motore Llama invece di Rasa
-const LlamaEngine = require('../nlp/llamaEngine'); // Assicurati che il percorso sia corretto
+const LlamaEngine = require('../nlp/llamaEngineOllama'); // Assicurati che il percorso sia corretto
 
 // Inizializza il motore NLP in base alla configurazione
 let nlpEngine;

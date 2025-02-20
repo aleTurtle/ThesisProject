@@ -1,0 +1,128 @@
+[
+  {
+    "ruolo": "Responsabile di Sezione",
+    "nome": "Prof. Flavio Corradini",
+    "email": "flavio.corradini@unicam.it",
+    "telefono": "+39 0737 402564"
+  },
+  {
+    "ruolo": "Responsabile per il Dottorato di Ricerca in Computer Science and Mathematics",
+    "nome": "&nbsp;Prof. Andrea Polini",
+    "email": "andrea.polini@unicam.it",
+    "telefono": "+39 0737 402563"
+  },
+  {
+    "ruolo": "Responsabile per i Corsi di Laurea in Informatica e in Informatica per la Comunicazione Digitale",
+    "nome": "&nbsp;Prof.ssa Barbara Re&nbsp;",
+    "email": "barbara.re@unicam.it",
+    "telefono": "+39 0737 402524"
+  },
+  {
+    "ruolo": "Responsabile per il Corso di Laurea Magistrale",
+    "nome": "&nbsp;Prof.ssa Barbara Re&nbsp;",
+    "email": "barbara.re@unicam.it",
+    "telefono": "+39 0737 402524"
+  },
+  {
+    "ruolo": "Orientamento Magistrale",
+    "nome": "Dr. Lorenzo Rossi",
+    "email": "lorenzo.rossi@unicam.it",
+    "telefono": "+ 39 0737 403705"
+  },
+  {
+    "ruolo": "Orientamento Triennale Informatica per la Comunicazione Digitale",
+    "nome": "Prof.ssa Michela Quadrini",
+    "email": "michela.quadrini@unicam.it",
+    "telefono": "+39 0737 402082"
+  },
+  {
+    "ruolo": "Orientamento Triennale Informatica",
+    "nome": "Prof. Andrea Morichetta",
+    "email": "andrea.morichetta@unicam.it",
+    "telefono": "+ 39 0737 403709"
+  },
+  {
+    "ruolo": "Rapporti con le scuole e PLS",
+    "nome": "Dr. Rosario Culmone",
+    "email": "rosario.culmone@unicam.it",
+    "telefono": "+39 0737 402500"
+  },
+  {
+    "ruolo": "Internazionalizzazione, mobilità Erasmus+ e mobilità internazionale",
+    "nome": "Prof. Luca Tesei",
+    "email": "luca.tesei@unicam.it",
+    "telefono": "+39 0737 402572"
+  },
+  {
+    "ruolo": "Ricerca",
+    "nome": "Prof. Andrea Polini",
+    "email": "andrea.polini@unicam.it",
+    "telefono": "+39 0737 402563"
+  },
+  {
+    "ruolo": "Stage e Placement",
+    "nome": "Prof. Fausto Marcantoni",
+    "email": "fausto.marcantoni@unicam.it",
+    "telefono": "+39 0737 402105"
+  },
+  {
+    "ruolo": "Tutorato",
+    "nome": "Prof.ssa Diletta Cacciagrano",
+    "email": "diletta.cacciagrano@unicam.it",
+    "telefono": "+39 0737 402573"
+  },
+  {
+    "ruolo": "Logistica",
+    "nome": "Prof. Fausto Marcantoni",
+    "email": "fausto.marcantoni@unicam.it",
+    "telefono": "+39 0737 402105"
+  },
+  {
+    "ruolo": "Sedute di Laurea",
+    "nome": "Prof.ssa Michela Quadrini",
+    "email": "michela.quadrini@unicam.it",
+    "telefono": "+39 0737 402082"
+  },
+  {
+    "ruolo": "Pratiche Studenti",
+    "nome": "Prof. Fabrizio Fornari",
+    "email": "fabrizio.fornari@unicam.it",
+    "telefono": "+39 0737 402075"
+  },
+  {
+    "ruolo": "Web e wiki",
+    "nome": "Prof. Andrea Morichetta",
+    "email": "andrea.morichetta@unicam.it",
+    "telefono": "+ 39 0737 403709"
+  },
+  {
+    "ruolo": "Gestione Banche Dati: studenti e innovazione",
+    "nome": "Prof. Grid Thoma",
+    "email": "grid.thoma@unicam.it",
+    "telefono": "+39 0737 403074"
+  },
+  {
+    "ruolo": "N/A",
+    "nome": "N/A",
+    "email": "N/A",
+    "telefono": "N/A"
+  },
+  {
+    "ruolo": "Polo Informatico \"Carla Lodovici\"",
+    "nome": "N/A",
+    "email": "infocs@unicam.it",
+    "telefono": "N/A"
+  },
+  {
+    "ruolo": "N/A",
+    "nome": "N/A",
+    "email": "N/A",
+    "telefono": "N/A"
+  },
+  {
+    "ruolo": "N/A",
+    "nome": "N/A",
+    "email": "N/A",
+    "telefono": "N/A"
+  }
+]

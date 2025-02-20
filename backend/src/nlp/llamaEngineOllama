@@ -1,0 +1,47 @@
+const { exec } = require('child_process');
+
+class LlamaEngine {
+  constructor() {
+    this.modelName = 'llama2';
+    this.context = 'La macchina di Tom è rossa. È una Ferrari. La macchina è parcheggiata vicino al parco.';
+  }
+
+  async processMessage(message) {
+    if (!message) {
+      throw new Error("Il messaggio è obbligatorio.");
+    }
+
+    return new Promise((resolve, reject) => {
+      // Aggiungi il contesto alla domanda
+      const enhancedMessage = `${this.context}. ${message}`; // Unisci contesto + domanda
+
+      const command = `echo "${enhancedMessage}" | ollama run ${this.modelName}`;
+      console.log("Eseguo comando:", command);
+
+      exec(command, (error, stdout, stderr) => {
+        console.log("stdout:", stdout);
+        console.log("stderr:", stderr);
+
+        if (error) {
+          console.error("Errore durante l'esecuzione di ollama:", error);
+          reject(`Errore nell'esecuzione di ollama: ${error.message}`);
+          return;
+        }
+
+        if (stderr) {
+          console.warn("Avviso (stderr):", stderr);
+        }
+
+        if (!stdout) {
+          console.error("Nessuna risposta da ollama.");
+          reject("Nessuna risposta dal modello Llama2.");
+          return;
+        }
+
+        resolve(stdout.trim());
+      });
+    });
+  }
+}
+
+module.exports = LlamaEngine;

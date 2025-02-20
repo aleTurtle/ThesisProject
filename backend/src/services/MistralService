@@ -1,0 +1,28 @@
+const MistralEngine = require('../nlp/MistralEngineOllama'); // Assicurati che il percorso sia corretto
+
+let nlpEngine;
+if (process.env.NLP_ENGINE === 'mistral') {
+  nlpEngine = new MistralEngine(); // Usa Mistral invece di Llama
+}
+
+const sendMessageToNLP = async (message) => {
+  try {
+    console.log("Invio messaggio a Mistral:", message);
+
+    const nlpResponse = await nlpEngine.processMessage(message);
+
+    if (!nlpResponse) {
+      console.error("Errore: Nessuna risposta ricevuta dal motore NLP");
+      throw new Error("Nessuna risposta dal motore NLP");
+    }
+
+    console.log("Risposta da Mistral:", nlpResponse);
+
+    return nlpResponse;
+  } catch (error) {
+    console.error("Errore durante la comunicazione con il motore NLP:", error.message);
+    throw new Error('Errore nel comunicare con il motore NLP');
+  }
+};
+
+module.exports = { sendMessageToNLP };

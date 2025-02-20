@@ -54,7 +54,7 @@ const signupRoutes = require('./src/routes/signupRoutes');
 app.use('/api/auth', loginRoutes);
 app.use('/api/auth', signupRoutes);
 
-//route per inviare messaggi a Rasa
+//route per inviare messaggi al Motore NLP
 const chatRoutes = require('./src/routes/chatRoute');
 app.use('/api/chat',chatRoutes);
 

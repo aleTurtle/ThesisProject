@@ -1,5 +1,5 @@
 const { Message } = require('../models/Message'); // Importa il modello Message
-const nlpService = require('../services/llamaService');
+const nlpService = require('../services/MistralService');
 const { sanitizeInput } = require('../services/sanitizationService');
 
 // Funzione per gestire la conversazione
